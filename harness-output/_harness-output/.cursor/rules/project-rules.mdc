@@ -1,0 +1,61 @@
+---
+description: aloha-kids-game project rules for Cursor IDE
+globs: ["**/*.ts", "**/*.tsx", "**/*.js", "src-tauri/**/*.rs"]
+alwaysApply: true
+---
+
+# aloha-kids-game — Cursor Project Rules
+
+## Identity
+
+This is a Tauri-based kids' game platform. The Tauri shell (Rust) hosts multiple TypeScript game SPAs.
+Each game is a self-contained single-page application. **Child delight comes first.**
+
+## Always Load at Session Start
+
+1. Read `.agent/DNA/PROJECT_DNA.md` — Quick Check section minimum
+2. Read `.agent/rules/README.md` — rule routing table
+
+## Hard Blocks — Never Do Without Human Approval
+
+- Push directly to `main`/`master`
+- Use `any` type in game logic
+- Use `!` non-null assertion on Tauri IPC responses or user input
+- Commit credentials or API keys
+- Add shared mutable state across game modules
+
+## TypeScript Rules (BLOCK)
+
+- No `any` types in production code — use `unknown` + type guard
+- No bare `catch` blocks that swallow errors
+- No fire-and-forget `invoke()` calls — always `await` with error handling
+- No `console.log` in production code paths — use structured logger
+
+## TDD Rules (BLOCK)
+
+- Write a failing test BEFORE production code
+- Run `npx vitest run 2>&1 | tail -40` before marking any task complete
+- Mock all `@tauri-apps/api` imports in unit tests
+
+## Error Handling (BLOCK)
+
+- All fallible operations must return a `Result<T, E>` type or throw with full context
+- Errors must include operation name and relevant inputs in the message
+
+## Code Style (WARN)
+
+- `const` over `let`; never `var`
+- Max function body: 40 lines
+- Functions with > 3 params → use a config interface
+
+## DNA Quick Check
+
+```
+Stack:    TypeScript / Tauri / Vite / Vitest
+Priority: Child delight > Correctness > Performance > Maintainability
+Test cmd: npx vitest run
+Type cmd: npx tsc --noEmit
+```
+
+Full DNA: `.agent/DNA/PROJECT_DNA.md`
+Slash commands: `.claude/commands/INDEX.md`

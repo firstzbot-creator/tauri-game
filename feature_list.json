@@ -1,0 +1,12 @@
+{
+  "_guard": "Never delete features — only advance status (discovered → in-progress → done)",
+  "platform": {
+    "game-launcher": "discovered",
+    "score-persistence": "discovered",
+    "game-shell-ipc": "discovered",
+    "shared-utilities": "discovered"
+  },
+  "games": {
+    "_note": "Add game names here as they are planned — e.g., 'bubble-pop': 'discovered'"
+  }
+}
