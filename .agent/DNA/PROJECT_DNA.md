@@ -107,14 +107,27 @@ Load:     TRIVIAL → Quick Check only | MODERATE → + Graveyard | SIGNIFICANT 
 
 ## Commands Reference
 
+### Canonical CLI (agents and developers use these)
+
+| Command | Purpose |
+|---------|---------|
+| `python3 ranzi-game.py init` | Check and install all dev dependencies (idempotent) |
+| `python3 ranzi-game.py test` | Run all test tiers (unit → integration → E2E) |
+| `python3 ranzi-game.py test --unit` | Unit tests only (Vitest + Python unittest) |
+| `python3 ranzi-game.py test --integration` | Integration tests only |
+| `python3 ranzi-game.py test --e2e` | E2E tests only (skips if not configured) |
+| `python3 ranzi-game.py run` | Launch the game (auto-discovers; prompts if multiple) |
+| `python3 ranzi-game.py run --game <name>` | Launch a specific game |
+
+### Internal commands (use only when CLI is unavailable)
+
 | Command | Test | Coverage | Build |
 |---------|------|----------|-------|
 | `npx vitest run` | Unit + integration | — | — |
 | `npx vitest run --coverage` | — | Line + branch | — |
 | `npx tauri build` | — | — | Release |
 | `npx tauri dev` | — | — | Dev server |
-
-*(Fill in E2E command once Playwright/WebdriverIO is configured)*
+| `npx playwright test` | — | — | E2E (once configured) |
 
 ---
 

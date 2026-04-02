@@ -6,7 +6,7 @@ Tabular view of all specs across their lifecycle.
 
 | ID | Title | Status | Game / Scope | Created | Updated |
 |----|-------|--------|-------------|---------|---------|
-| *(none yet)* | — | — | — | — | — |
+| spec_000001 | Global Developer CLI (ranzi-game.py) | Completed | platform | 2026-04-01 | 2026-04-01 |
 
 ---
 

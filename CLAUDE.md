@@ -105,21 +105,39 @@ Bug reports live in `docs/bugs/README.md` (the bug index) and individual files i
 
 ## Environment Setup
 
+### Canonical CLI (use these)
+
 ```bash
-# Install dependencies
-npm install
+# Check and install all dev dependencies (idempotent)
+python3 ranzi-game.py init
 
-# Run unit tests
-npx vitest run
+# Run all tests (unit → integration → E2E)
+python3 ranzi-game.py test
 
-# Run unit tests with coverage
-npx vitest run --coverage
+# Run only unit tests (Vitest + Python unittest)
+python3 ranzi-game.py test --unit
 
-# Start dev server (Tauri + frontend)
-npx tauri dev
+# Run only integration tests
+python3 ranzi-game.py test --integration
 
-# Build release
-npx tauri build
+# Run only E2E tests (skips gracefully if not configured)
+python3 ranzi-game.py test --e2e
+
+# Launch the game (auto-discovers available games)
+python3 ranzi-game.py run
+
+# Launch a specific game
+python3 ranzi-game.py run --game <name>
+```
+
+### Internal commands (use only when CLI is unavailable)
+
+```bash
+npm install                        # install dependencies
+npx vitest run                     # unit tests (internal)
+npx vitest run --coverage          # unit tests with coverage
+npx tauri dev                      # start dev server
+npx tauri build                    # build release
 ```
 
 ---

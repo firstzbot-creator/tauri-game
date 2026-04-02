@@ -1,1 +1,67 @@
 refs
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+env/
+.env
+pip-wheel-metadata/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+*.cover
+
+# ── Node / TypeScript ─────────────────────────────────────────────────────────
+node_modules/
+dist/
+.cache/
+*.tsbuildinfo
+.eslintcache
+.parcel-cache/
+.vite/
+coverage/
+.nyc_output/
+
+# ── Rust / Cargo ──────────────────────────────────────────────────────────────
+target/
+Cargo.lock
+**/*.rs.bk
+
+# ── Tauri ─────────────────────────────────────────────────────────────────────
+src-tauri/target/
+src-tauri/WixTools/
+*.app
+*.dmg
+*.deb
+*.AppImage
+*.msi
+*.exe
+
+# ── OS / editor ───────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/settings.json
+.vscode/launch.json
+*.iml
+
+# ── Test / coverage output ────────────────────────────────────────────────────
+playwright-report/
+test-results/
