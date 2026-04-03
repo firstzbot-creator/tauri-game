@@ -30,18 +30,16 @@ class TestTestCmdAllTiers(unittest.TestCase):
 
         with (
             patch("ranzi_game.commands.test_cmd.run_command", side_effect=fake_run),
-            patch(
-                "ranzi_game.commands.test_cmd._playwright_config_exists",
-                return_value=True,
-            ),
+            patch("ranzi_game.commands.test_cmd._playwright_config_exists", return_value=True),
+            patch("ranzi_game.commands.test_cmd._integration_tests_exist", return_value=True),
         ):
             result = execute(project_root=root, unit=False, integration=False, e2e=False)
 
         self.assertIsInstance(result, Ok)
         # unit tier must appear before integration, integration before e2e
-        # unit vitest uses --exclude; integration vitest uses --include
+        # unit vitest uses --exclude; integration vitest uses **/*.integration.test.ts positionally
         unit_idx = next(i for i, c in enumerate(calls) if "vitest" in c and "--exclude" in c)
-        integration_idx = next(i for i, c in enumerate(calls) if "--include" in c)
+        integration_idx = next(i for i, c in enumerate(calls) if "**/*.integration.test.ts" in c and "--exclude" not in c)
         e2e_idx = next(i for i, c in enumerate(calls) if "playwright" in c)
         self.assertLess(unit_idx, integration_idx)
         self.assertLess(integration_idx, e2e_idx)
@@ -85,8 +83,8 @@ class TestTestCmdUnitFlag(unittest.TestCase):
         # must call vitest (unit) and python unittest discover
         self.assertTrue(any("vitest" in c for c in flat))
         self.assertTrue(any("unittest" in c for c in flat))
-        # must NOT call integration vitest (--include) or playwright
-        self.assertFalse(any("--include" in c for c in flat))
+        # must NOT call integration vitest
+        self.assertFalse(any("**/*.integration.test.ts" in c and "--exclude" not in c for c in flat))
         self.assertFalse(any("playwright" in c for c in flat))
 
 
@@ -101,16 +99,32 @@ class TestTestCmdIntegrationFlag(unittest.TestCase):
             called_cmds.append(cmd)
             return _ok_process(cmd)
 
-        with patch("ranzi_game.commands.test_cmd.run_command", side_effect=fake_run):
+        with (
+            patch("ranzi_game.commands.test_cmd.run_command", side_effect=fake_run),
+            patch("ranzi_game.commands.test_cmd._integration_tests_exist", return_value=True),
+        ):
             result = execute(project_root=root, unit=False, integration=True, e2e=False)
 
         self.assertIsInstance(result, Ok)
         flat = [" ".join(c) for c in called_cmds]
-        # integration vitest uses --include
-        self.assertTrue(any("--include" in c for c in flat))
+        # integration vitest uses **/*.integration.test.ts
+        self.assertTrue(any("**/*.integration.test.ts" in c and "--exclude" not in c for c in flat))
         self.assertFalse(any("playwright" in c for c in flat))
         # must not call unit vitest (which uses --exclude)
         self.assertFalse(any("--exclude" in c for c in flat))
+
+    def test_integration_skips_gracefully_when_no_integration_files_exist(self) -> None:
+        from ranzi_game.commands.test_cmd import execute
+
+        root = Path("/tmp/project")
+        with (
+            patch("ranzi_game.commands.test_cmd.run_command") as mock_run,
+            patch("ranzi_game.commands.test_cmd._integration_tests_exist", return_value=False),
+        ):
+            result = execute(project_root=root, unit=False, integration=True, e2e=False)
+
+        self.assertIsInstance(result, Ok)
+        mock_run.assert_not_called()
 
 
 class TestTestCmdE2EFlag(unittest.TestCase):
@@ -165,10 +179,8 @@ class TestTestCmdE2EFlag(unittest.TestCase):
 
         with (
             patch("ranzi_game.commands.test_cmd.run_command", side_effect=fake_run),
-            patch(
-                "ranzi_game.commands.test_cmd._playwright_config_exists",
-                return_value=True,
-            ),
+            patch("ranzi_game.commands.test_cmd._playwright_config_exists", return_value=True),
+            patch("ranzi_game.commands.test_cmd._integration_tests_exist", return_value=True),
         ):
             result = execute(project_root=root, unit=False, integration=False, e2e=False)
 

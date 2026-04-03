@@ -77,7 +77,10 @@ class TestRunCmdExecute(unittest.TestCase):
                     )
                 )
 
-            with patch("ranzi_game.commands.run_cmd.run_command", side_effect=fake_run):
+            with (
+                patch("ranzi_game.commands.run_cmd.run_command", side_effect=fake_run),
+                patch("ranzi_game.commands.run_cmd._tauri_project_exists", return_value=True),
+            ):
                 result = execute(project_root=root, game=None)
 
         self.assertIsInstance(result, Ok)
@@ -93,12 +96,27 @@ class TestRunCmdExecute(unittest.TestCase):
             (apps / "game-one").mkdir()
             (apps / "game-two").mkdir()
 
-            result = execute(project_root=root, game="nonexistent-game")
+            with patch("ranzi_game.commands.run_cmd._tauri_project_exists", return_value=True):
+                result = execute(project_root=root, game="nonexistent-game")
 
         self.assertIsInstance(result, Err)
         self.assertIn("nonexistent-game", result.message)
         self.assertIn("game-one", result.message)
         self.assertIn("game-two", result.message)
+
+
+    def test_returns_err_when_no_tauri_project_exists(self) -> None:
+        from ranzi_game.commands.run_cmd import execute
+
+        with TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            # no tauri.conf.json anywhere — should fail before calling run_command
+            with patch("ranzi_game.commands.run_cmd.run_command") as mock_run:
+                result = execute(project_root=root, game=None)
+
+        self.assertIsInstance(result, Err)
+        self.assertIn("tauri", result.message.lower())
+        mock_run.assert_not_called()
 
 
 if __name__ == "__main__":

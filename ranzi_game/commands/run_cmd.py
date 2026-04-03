@@ -17,6 +17,16 @@ def discover_games(project_root: Path) -> list[str]:
     return games if games else ["default"]
 
 
+def _tauri_project_exists(project_root: Path) -> bool:
+    """Return True if any tauri.conf.json / tauri.conf.json5 / Tauri.toml exists."""
+    config_names = ("tauri.conf.json", "tauri.conf.json5", "Tauri.toml")
+    return any(
+        conf_file
+        for name in config_names
+        for conf_file in project_root.rglob(name)
+    )
+
+
 def tauri_config_for_game(project_root: Path, game: str) -> list[str]:
     if game == "default":
         return ["npx", "tauri", "dev"]
@@ -25,6 +35,14 @@ def tauri_config_for_game(project_root: Path, game: str) -> list[str]:
 
 
 def execute(project_root: Path, game: str | None) -> Result[None]:
+    if not _tauri_project_exists(project_root):
+        return Err(
+            message=(
+                "No Tauri project found. "
+                "Expected a tauri.conf.json, tauri.conf.json5, or Tauri.toml in a subfolder."
+            )
+        )
+
     games = discover_games(project_root)
 
     if game is not None:

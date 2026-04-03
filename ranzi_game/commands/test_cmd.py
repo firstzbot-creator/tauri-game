@@ -13,6 +13,11 @@ def _playwright_config_exists(project_root: Path) -> bool:
     )
 
 
+def _integration_tests_exist(project_root: Path) -> bool:
+    """Return True if any *.integration.test.ts files exist under the project root."""
+    return any(project_root.rglob("*.integration.test.ts"))
+
+
 def _run_unit(project_root: Path) -> Result[None]:
     vitest_result = run_command(
         ["npx", "vitest", "run", "--exclude", "**/*.integration.test.ts"],
@@ -36,8 +41,11 @@ def _run_unit(project_root: Path) -> Result[None]:
 
 
 def _run_integration(project_root: Path) -> Result[None]:
+    if not _integration_tests_exist(project_root):
+        print("[SKIP] Integration tests not configured")
+        return Ok(value=None)
     result = run_command(
-        ["npx", "vitest", "run", "--include", "**/*.integration.test.ts"],
+        ["npx", "vitest", "run", "**/*.integration.test.ts"],
         cwd=project_root,
     )
     match result:

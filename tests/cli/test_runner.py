@@ -51,6 +51,16 @@ class TestRunCommandSuccess(unittest.TestCase):
         self.assertIsInstance(result, Err)
         self.assertIn("(no stderr)", result.message)
 
+    def test_nonzero_with_none_stderr_shows_no_stderr_message(self) -> None:
+        completed = subprocess.CompletedProcess(
+            args=["cmd"], returncode=2, stdout=None, stderr=None
+        )
+        with patch("subprocess.run", return_value=completed):
+            result = run_command(["cmd"])
+        self.assertIsInstance(result, Err)
+        self.assertIn("(no stderr)", result.message)
+
+
 
 if __name__ == "__main__":
     unittest.main()

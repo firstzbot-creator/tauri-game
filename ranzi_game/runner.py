@@ -18,10 +18,11 @@ def run_command(
             text=True,
         )
         if completed.returncode != 0:
+            stderr = completed.stderr.strip() if completed.stderr else ""
             return Err(
                 message=(
                     f"Command {cmd[0]!r} exited with code {completed.returncode}: "
-                    f"{completed.stderr.strip() or '(no stderr)'}"
+                    f"{stderr or '(no stderr)'}"
                 ),
             )
         return Ok(value=completed)
