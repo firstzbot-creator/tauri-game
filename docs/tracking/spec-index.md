@@ -7,6 +7,7 @@ Tabular view of all specs across their lifecycle.
 | ID | Title | Status | Game / Scope | Created | Updated |
 |----|-------|--------|-------------|---------|---------|
 | spec_000001 | Global Developer CLI (ranzi-game.py) | Completed | platform | 2026-04-01 | 2026-04-01 |
+| spec_000002 | Cat Adventure | Approved | cat-adventure | 2026-04-02 | 2026-04-02 |
 
 ---
 
