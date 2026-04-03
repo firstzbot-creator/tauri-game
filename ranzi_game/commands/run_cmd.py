@@ -30,8 +30,18 @@ def _tauri_project_exists(project_root: Path) -> bool:
 def tauri_config_for_game(project_root: Path, game: str) -> list[str]:
     if game == "default":
         return ["npx", "tauri", "dev"]
-    config = project_root / "apps" / game / "tauri.conf.json"
+    
+    app_root = project_root / "apps" / game
+    config = app_root / "tauri.conf.json"
+    if not config.exists():
+        # Try src-tauri subdirectory
+        src_tauri_config = app_root / "src-tauri" / "tauri.conf.json"
+        if src_tauri_config.exists():
+            config = src_tauri_config
+            
     return ["npx", "tauri", "dev", "--config", str(config)]
+
+
 
 
 def execute(project_root: Path, game: str | None) -> Result[None]:
@@ -65,10 +75,12 @@ def execute(project_root: Path, game: str | None) -> Result[None]:
         except ValueError:
             return Err(message=f"Invalid selection {raw!r}. Enter a number.")
 
+    app_root = project_root / "apps" / selected
     cmd = tauri_config_for_game(project_root, selected)
-    result = run_command(cmd, cwd=project_root)
+    result = run_command(cmd, cwd=app_root)
     match result:
         case Ok(_):
             return Ok(value=None)
         case Err(message=msg, cause=cause):
             return Err(message=f"Failed to launch {selected!r}: {msg}", cause=cause)
+

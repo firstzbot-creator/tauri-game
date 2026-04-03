@@ -1,9 +1,19 @@
 {
   "devDependencies": {
     "@tauri-apps/cli": "^2.10.1",
+    "@types/node": "^25.5.0",
+    "esbuild": "^0.27.7",
     "typescript": "^6.0.2",
     "vite": "^8.0.3",
     "vitest": "^4.1.2"
   },
-  "type": "module"
+  "scripts": {
+    "dev": "vite apps/cat-adventure",
+    "build": "vite build apps/cat-adventure",
+    "preview": "vite preview apps/cat-adventure"
+  },
+  "type": "module",
+  "dependencies": {
+    "@tauri-apps/api": "^2.10.1"
+  }
 }

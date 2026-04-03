@@ -1,0 +1,20 @@
+{
+  "$schema": "../gen/schemas/capability.json",
+  "identifier": "default",
+  "description": "Default permissions for cat-adventure",
+  "windows": ["main"],
+  "permissions": [
+    "core:path:default",
+    "core:event:default",
+    "core:window:default",
+    "core:app:default",
+    {
+      "identifier": "allow-game-commands",
+      "description": "Allow game state commands",
+      "commands": [
+        "save_game_state",
+        "load_game_state"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "cat-adventure",
+  "version": "0.1.0",
+  "identifier": "com.aloha.cat-adventure",
+  "build": {
+    "beforeDevCommand": "npm run --prefix ../../ dev",
+    "devUrl": "http://localhost:1420",
+    "beforeBuildCommand": "npm run --prefix ../../ build",
+    "frontendDist": "./dist"
+  },
+
+
+
+  "app": {
+    "windows": [
+      {
+        "title": "Cat Adventure",
+        "width": 800,
+        "height": 600
+      }
+    ],
+    "security": {
+      "csp": null
+    }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": []
+  }
+
+}
