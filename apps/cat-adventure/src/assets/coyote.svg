@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <!-- Body -->
+  <ellipse cx="32" cy="40" rx="18" ry="14" fill="#C4956A"/>
+  <!-- Belly -->
+  <ellipse cx="32" cy="44" rx="12" ry="8" fill="#E8D5B7"/>
+  <!-- Head -->
+  <ellipse cx="32" cy="22" rx="12" ry="10" fill="#C4956A"/>
+  <!-- Snout -->
+  <ellipse cx="32" cy="26" rx="6" ry="4" fill="#E8D5B7"/>
+  <!-- Nose -->
+  <ellipse cx="32" cy="24" rx="2.5" ry="2" fill="#3D2B1F"/>
+  <!-- Eyes -->
+  <circle cx="26" cy="20" r="2.5" fill="#3D2B1F"/>
+  <circle cx="38" cy="20" r="2.5" fill="#3D2B1F"/>
+  <circle cx="27" cy="19.5" r="1" fill="white"/>
+  <circle cx="39" cy="19.5" r="1" fill="white"/>
+  <!-- Ears -->
+  <polygon points="22,16 18,4 26,12" fill="#C4956A"/>
+  <polygon points="42,16 46,4 38,12" fill="#C4956A"/>
+  <polygon points="23,14 20,6 26,12" fill="#E8A87C"/>
+  <polygon points="41,14 44,6 38,12" fill="#E8A87C"/>
+  <!-- Legs -->
+  <rect x="18" y="50" width="5" height="10" rx="2" fill="#A07850"/>
+  <rect x="27" y="50" width="5" height="10" rx="2" fill="#A07850"/>
+  <rect x="33" y="50" width="5" height="10" rx="2" fill="#A07850"/>
+  <rect x="42" y="50" width="5" height="10" rx="2" fill="#A07850"/>
+  <!-- Tail -->
+  <path d="M50,38 Q58,30 54,22 Q52,26 48,30 Q46,34 50,38Z" fill="#C4956A"/>
+  <path d="M52,34 Q55,28 53,24" stroke="#E8D5B7" stroke-width="1.5" fill="none"/>
+  <!-- Mouth -->
+  <path d="M28,28 Q32,31 36,28" stroke="#3D2B1F" stroke-width="1" fill="none"/>
+</svg>

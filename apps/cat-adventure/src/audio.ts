@@ -1,4 +1,5 @@
-export type SfxName = 'meow' | 'chime' | 'rustle' | 'discovery';
+export type SfxName = 'meow' | 'chime' | 'rustle' | 'discovery'
+  | 'player-attack' | 'boss-hit' | 'player-hit' | 'victory-jingle' | 'defeat-sound';
 
 export type AudioManagerConfig = {
   musicVolume: number;
@@ -18,7 +19,7 @@ export const MUSIC_VOLUME = 0.35;
 export const SFX_VOLUME = 0.6;
 export const MUTE_STORAGE_KEY = 'cat-adventure-muted';
 
-const VALID_SFX: ReadonlySet<string> = new Set<SfxName>(['meow', 'chime', 'rustle', 'discovery']);
+const VALID_SFX: ReadonlySet<string> = new Set<SfxName>(['meow', 'chime', 'rustle', 'discovery', 'player-attack', 'boss-hit', 'player-hit', 'victory-jingle', 'defeat-sound']);
 
 export function loadMutePreference(): boolean {
   const stored = localStorage.getItem(MUTE_STORAGE_KEY);
@@ -54,7 +55,7 @@ export function createAudioManager(config: AudioManagerConfig): AudioManager {
   }
 
   function initSfx(): void {
-    const sfxNames: SfxName[] = ['meow', 'chime', 'rustle', 'discovery'];
+    const sfxNames: SfxName[] = ['meow', 'chime', 'rustle', 'discovery', 'player-attack', 'boss-hit', 'player-hit', 'victory-jingle', 'defeat-sound'];
     for (const name of sfxNames) {
       try {
         const audio = loadAudio(new URL(`./assets/audio/${name}.mp3`, import.meta.url).href);

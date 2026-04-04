@@ -7,6 +7,7 @@ All notable changes to this project are documented here.
 ## [Unreleased]
 
 ### Added
+- Fight system & first boss: coyote boss entity, combat engine with damage calculation, boss AI (idle/approach/attack), health bars HUD, hit visual feedback (flash, screen shake), victory celebration with particles, defeat overlay with retry, flee mechanic, Space bar attack with cooldown (spec_000006)
 - Discovery & living world: interactable objects, collision detection, speech bubbles, sparkle effects, discovery counter, wandering animals (spec_000005)
 - Audio system: background music with auto-play on interaction, SFX engine, mute toggle with localStorage persistence (spec_000004)
 - Visual world: grass field background, decorative flowers, full-body cat SVG sprite with idle animation (spec_000003)

@@ -11,6 +11,7 @@ Tabular view of all specs across their lifecycle.
 | spec_000003 | Visual World & Cat Sprite | Completed | cat-adventure | 2026-04-02 | 2026-04-02 |
 | spec_000004 | Audio System (Music & SFX) | Completed | cat-adventure | 2026-04-02 | 2026-04-02 |
 | spec_000005 | Discovery & Living World | Completed | cat-adventure | 2026-04-02 | 2026-04-02 |
+| spec_000006 | Fight System & First Boss | Completed | cat-adventure | 2026-04-03 | 2026-04-03 |
 
 ---
 
