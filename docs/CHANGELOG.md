@@ -19,6 +19,7 @@ All notable changes to this project are documented here.
 - `COMMAND_MANIFEST.md` Developer CLI section documenting `ranzi-game.py` as agent interface
 
 ### Fixed
+- Added missing audio assets for cat-adventure — all 10 MP3 files (music, meow, chime, rustle, discovery, player-attack, boss-hit, player-hit, victory-jingle, defeat-sound) were absent from disk, causing silent audio (20260403-missing-audio-assets)
 - Fixed IPC tests failing due to missing `@tauri-apps/api/core` mock in cat-adventure test suite (B000002)
 - Fixed `AttributeError` crash in `ranzi_game/runner.py` when `stderr` is None during command failure
 - Fixed CLI issue where `vitest run --include` failed due to missing flag in newer Vitest versions
